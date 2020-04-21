@@ -40,8 +40,7 @@
         try
         {
             // Cannot process pending renders after the renderer has been disposed?  try/catch hides this but gotta fix
-            //InvokeAsync(() => { StateHasChanged(); });
-            StateHasChanged(); 
+            InvokeAsync(() => { StateHasChanged(); });
         }
         catch (Exception exception)
         {
