@@ -1,0 +1,51 @@
+﻿<!-- Display the tab headers -->
+<CascadingValue Value=this>
+    <ul class="nav nav-tabs">
+        @ChildContent
+    </ul>
+</CascadingValue>
+
+<!-- Display body for only the active tab -->
+<div class="tab-content p-4">
+    <div class="tab-pane active">
+        @ActiveTab?.ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    public ITab ActiveTab { get; private set; }
+
+    public void AddTab(ITab tab)
+    {
+        if (ActiveTab == null)
+        {
+            SetActivateTab(tab);
+        }
+    }
+
+    public void RemoveTab(ITab tab)
+    {
+        if (ActiveTab == tab)
+        {
+            SetActivateTab(null);
+        }
+    }
+
+    public void SetActivateTab(ITab tab)
+    {
+        if (ActiveTab == tab) return;
+        ActiveTab = tab;
+        try
+        {
+            // Cannot process pending renders after the renderer has been disposed?  try/catch hides this but gotta fix
+            //InvokeAsync(() => { StateHasChanged(); });
+            StateHasChanged(); 
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception.Message);
+        }
+    }
+}
