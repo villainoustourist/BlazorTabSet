@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorTabs
+namespace BlazorTabSet
 {
     public interface ITab
     {
