@@ -11,6 +11,7 @@
     [CascadingParameter] TabSet ContainerTabSet { get; set; }
     [Parameter] public string Title { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public Action<string> OnClick { get; set; }
 
     string TitleCssClass => ContainerTabSet.ActiveTab == this ? "active" : null;
 
@@ -27,5 +28,6 @@
     void Activate()
     {
         ContainerTabSet.SetActivateTab(this);
+        OnClick?.Invoke(Title);
     }
 }
