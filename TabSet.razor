@@ -1,5 +1,5 @@
 ﻿<!-- Display the tab headers -->
-<CascadingValue Value=this>
+<CascadingValue Value="this">
     <ul class="nav nav-tabs">
         @ChildContent
     </ul>
@@ -21,7 +21,7 @@
 
     public void AddTab(ITab tab)
     {
-        if (ActiveTab == null || tab.Title == SelectedTitle)
+        if (ActiveTab == null || string.Equals(tab.Title, SelectedTitle, StringComparison.InvariantCultureIgnoreCase))
         {
             SetActivateTab(tab);
         }
