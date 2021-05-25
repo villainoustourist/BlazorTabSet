@@ -15,11 +15,13 @@
 @code {
     [Parameter] public RenderFragment ChildContent { get; set; }
 
+    [Parameter] public string SelectedTitle { get; set; }
+
     public ITab ActiveTab { get; private set; }
 
     public void AddTab(ITab tab)
     {
-        if (ActiveTab == null)
+        if (ActiveTab == null || tab.Title == SelectedTitle)
         {
             SetActivateTab(tab);
         }
@@ -40,7 +42,7 @@
         try
         {
             // Cannot process pending renders after the renderer has been disposed?  try/catch hides this but gotta fix
-            InvokeAsync(() => { StateHasChanged(); });
+            InvokeAsync(StateHasChanged);
         }
         catch (Exception exception)
         {
